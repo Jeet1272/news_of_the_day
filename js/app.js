@@ -38,8 +38,9 @@ const displayCategoryById = (categories) => {
     const categoryElement = document.getElementById('category-container')
     categories.forEach(category => {
         const containerDiv = document.createElement('div')
-        containerDiv.classList.add('row')
+        containerDiv.classList.add('card')
         containerDiv.innerHTML = `
+<div class="row g-2">
     <div class="col-md-4">
         <img src="${category.image_url}" class="img-fluid rounded-start" alt="...">
     </div>
@@ -67,6 +68,7 @@ const displayCategoryById = (categories) => {
             </div>
         </div>
     </div>
+</div>
     `
         categoryElement.appendChild(containerDiv)
 
