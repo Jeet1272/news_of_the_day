@@ -10,10 +10,56 @@ const displyCategories = (categories) => {
         const li = document.createElement('li')
         li.classList.add('nav-item')
         li.innerHTML = `
-        <a class="nav-link" href="#">${category.category_name}</a>
+        <a onclick="loadCategoryById('${category.category_id}')" class="nav-link" href="#">${category.category_name}</a>
         `
         categoriesElement.appendChild(li)
     }
+}
+const loadCategoryById = (Id) => {
+    url = `https://openapi.programming-hero.com/api/news/category/${Id}`
+    fetch(url)
+        .then(res => res.json())
+        .then(data => displayCategoryById(data.data))
+}
+const displayCategoryById = (categories) => {
+    const categoryElement = document.getElementById('category-container')
+    categories.forEach(category => {
+        console.log(category)
+        const containerDiv = document.createElement('div')
+        containerDiv.classList.add('row')
+        containerDiv.innerHTML = `
+    <div class="col-md-4">
+        <img src="${category.image_url}" class="img-fluid rounded-start" alt="...">
+    </div>
+    <div class="col-md-8">
+        <div class="card-body">
+            <h5 class="card-title">${category.title}</h5>
+            <p class="card-text">${category.details}</p>
+            <div class="d-flex justify-content-between">
+                <div class="d-flex justify-content-evenly">
+                    <div>
+                        <img src ="${category.author.img}">
+                    </div>
+                    <div>
+                    <h5 class="card-text"><small class="text-muted">${category.author.name}</small></h5>
+                    <p>${category.author.published_date}</p>
+                    </div>
+                </div>
+                <div>
+                <i class="fa-solid fa-eye"></i> ${category.total_view}
+                </div> 
+                <div>
+                <i class="fa-solid fa-arrow-up-from-bracket"></i>
+                </div>       
+            </div>
+        </div>
+    </div>
+    `
+        categoryElement.appendChild(containerDiv)
+
+    });
+
+
 }
 
 loadCategories()
