@@ -34,7 +34,7 @@ const displayCategoryById = (categories) => {
     <div class="col-md-8">
         <div class="card-body">
             <h5 class="card-title">${category.title}</h5>
-            <p class="card-text">${category.details}</p>
+            <p class="card-text dot-dot-dot">${category.details}</p>
             <div class="d-flex justify-content-between">
                 <div class="d-flex justify-content-evenly">
                     <div>
@@ -64,12 +64,18 @@ const modalViewrload = (Id) => {
     const url = `https://openapi.programming-hero.com/api/news/${Id}`
     fetch(url)
         .then(res => res.json())
-        .then(data => modalViewrDisolay(data.data[0]))
+        .then(data => modalViewrDisply(data.data[0]))
 }
-const modalViewrDisolay = (category) => {
-
-
-
+const modalViewrDisply = (category) => {
+    console.log(category)
+    const modalTitel = document.getElementById('staticBackdropLabel')
+    modalTitel.innerText = `
+    ${category.title}
+    `
+    const modalBody = document.getElementById('modal-body')
+    modalBody.innerText = `
+    ${category.details}
+    `
 }
 
 loadCategories()
