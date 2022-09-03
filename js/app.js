@@ -3,6 +3,7 @@ const loadCategories = () => {
     fetch(url)
         .then(res => res.json())
         .then(data => displyCategories(data.data.news_category))
+        .catch(error => console.log(error))
 }
 const displyCategories = (categories) => {
     const categoriesElement = document.getElementById('categorys')
@@ -31,6 +32,7 @@ const loadCategoryById = (Id) => {
     fetch(url)
         .then(res => res.json())
         .then(data => displayCategoryById(data.data))
+        .catch(error => console.log(error))
 }
 const displayCategoryById = (categories) => {
     const categoryElement = document.getElementById('category-container')
@@ -56,7 +58,7 @@ const displayCategoryById = (categories) => {
                     </div>
                 </div>
                 <div class="w-25 pt-3">
-                <i class="fa-solid fa-eye"></i> ${category.total_view ? category.total_view : 'No vewer'}
+                <i class="fa-solid fa-eye"></i> ${category.total_view ? category.total_view : 'No viewer'}
                 </div>
                 <button type="button" class="btn w-25 pb-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                 <i onclick=modalViewrload('${category._id}') class="fa-solid fa-arrow-up-from-bracket"></i>
@@ -77,6 +79,7 @@ const modalViewrload = (Id) => {
     fetch(url)
         .then(res => res.json())
         .then(data => modalViewrDisply(data.data[0]))
+        .catch(error => console.log(error))
 }
 const modalViewrDisply = (category) => {
     console.log(category)
