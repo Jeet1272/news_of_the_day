@@ -1,3 +1,4 @@
+/* ----------- All Categories Disply Function ---------- */
 const loadCategories = () => {
     const url = `https://openapi.programming-hero.com/api/news/categories`
     fetch(url)
@@ -15,8 +16,8 @@ const displyCategories = (categories) => {
         `
         categoriesElement.appendChild(li)
     }
-
 }
+/* -------------------- Spiner function ----------------- */
 const toogleLoading = (isLoading) => {
     const spinnerElement = document.getElementById('spinner')
     if (isLoading === true) {
@@ -24,7 +25,7 @@ const toogleLoading = (isLoading) => {
     }
     else { spinnerElement.classList.add('d-none') }
 }
-
+/* ------- Category Disply Function ------------- */
 const loadCategoryById = (Id) => {
     /* ----Spinner start----- */
     toogleLoading(true)
@@ -51,7 +52,7 @@ const displayCategoryById = (categories) => {
             <div class="d-flex justify-content-between">
                 <div class="d-flex justify-content-evenly w-50">
                     <div>
-                        <img class="img-fluid rounded-start rounded-5" src ="${category.author.img}">
+                        <img class="img-fluid rounded-start rounded-circle" src ="${category.author.img}">
                     </div>
                     <div>
                     <h5 class="card-text"><small class="text-muted">${category.author.name ? category.author.name : 'No namne found'}</small></h5>
@@ -76,6 +77,7 @@ const displayCategoryById = (categories) => {
     /*------------ Spinner stop ----------*/
     toogleLoading(false)
 }
+/* -----------Modal function ------------------*/
 const modalViewrload = (Id) => {
     const url = `https://openapi.programming-hero.com/api/news/${Id}`
     fetch(url)
