@@ -24,7 +24,7 @@ const loadCategoryById = (Id) => {
 const displayCategoryById = (categories) => {
     const categoryElement = document.getElementById('category-container')
     categories.forEach(category => {
-        console.log(category)
+        // console.log(category)
         const containerDiv = document.createElement('div')
         containerDiv.classList.add('row')
         containerDiv.innerHTML = `
@@ -41,16 +41,17 @@ const displayCategoryById = (categories) => {
                         <img src ="${category.author.img}">
                     </div>
                     <div>
-                    <h5 class="card-text"><small class="text-muted">${category.author.name}</small></h5>
+                    <h5 class="card-text"><small class="text-muted">${category.author.name ? category.author.name : 'No namne found'}</small></h5>
                     <p>${category.author.published_date}</p>
                     </div>
                 </div>
                 <div>
-                <i class="fa-solid fa-eye"></i> ${category.total_view}
-                </div> 
-                <div>
-                <i class="fa-solid fa-arrow-up-from-bracket"></i>
-                </div>       
+                <i class="fa-solid fa-eye"></i> ${category.total_view ? category.total_view : 'No vewer'}
+                </div>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                <i onclick=modalViewrload('${category._id}') class="fa-solid fa-arrow-up-from-bracket"></i>
+                </button>
+                       
             </div>
         </div>
     </div>
@@ -58,6 +59,15 @@ const displayCategoryById = (categories) => {
         categoryElement.appendChild(containerDiv)
 
     });
+}
+const modalViewrload = (Id) => {
+    const url = `https://openapi.programming-hero.com/api/news/${Id}`
+    fetch(url)
+        .then(res => res.json())
+        .then(data => modalViewrDisolay(data.data[0]))
+}
+const modalViewrDisolay = (category) => {
+
 
 
 }
