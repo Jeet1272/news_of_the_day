@@ -14,8 +14,19 @@ const displyCategories = (categories) => {
         `
         categoriesElement.appendChild(li)
     }
+
 }
+const toogleLoading = (isLoading) => {
+    const spinnerElement = document.getElementById('spinner')
+    if (isLoading === true) {
+        spinnerElement.classList.remove('d-none')
+    }
+    else { spinnerElement.classList.add('d-none') }
+}
+
 const loadCategoryById = (Id) => {
+    /* ----Spinner start----- */
+    toogleLoading(true)
     url = `https://openapi.programming-hero.com/api/news/category/${Id}`
     fetch(url)
         .then(res => res.json())
@@ -24,7 +35,6 @@ const loadCategoryById = (Id) => {
 const displayCategoryById = (categories) => {
     const categoryElement = document.getElementById('category-container')
     categories.forEach(category => {
-        // console.log(category)
         const containerDiv = document.createElement('div')
         containerDiv.classList.add('row')
         containerDiv.innerHTML = `
@@ -36,19 +46,19 @@ const displayCategoryById = (categories) => {
             <h5 class="card-title">${category.title}</h5>
             <p class="card-text dot-dot-dot">${category.details}</p>
             <div class="d-flex justify-content-between">
-                <div class="d-flex justify-content-evenly">
+                <div class="d-flex justify-content-evenly w-50">
                     <div>
-                        <img src ="${category.author.img}">
+                        <img class="img-fluid rounded-start rounded-5" src ="${category.author.img}">
                     </div>
                     <div>
                     <h5 class="card-text"><small class="text-muted">${category.author.name ? category.author.name : 'No namne found'}</small></h5>
                     <p>${category.author.published_date}</p>
                     </div>
                 </div>
-                <div>
+                <div class="w-25 pt-3">
                 <i class="fa-solid fa-eye"></i> ${category.total_view ? category.total_view : 'No vewer'}
                 </div>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                <button type="button" class="btn w-25 pb-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                 <i onclick=modalViewrload('${category._id}') class="fa-solid fa-arrow-up-from-bracket"></i>
                 </button>
                        
@@ -59,6 +69,8 @@ const displayCategoryById = (categories) => {
         categoryElement.appendChild(containerDiv)
 
     });
+    /*------------ Spinner stop ----------*/
+    toogleLoading(false)
 }
 const modalViewrload = (Id) => {
     const url = `https://openapi.programming-hero.com/api/news/${Id}`
